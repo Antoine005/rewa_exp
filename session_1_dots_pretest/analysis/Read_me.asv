@@ -1,0 +1,32 @@
+function Read_me
+%
+% "inputs" foledr : the parameters for session 1 (pre-test session)
+% "data"   folder : outcomes from the experiments
+%
+% In the input fodler, there are 16 subjects' mat files, each file is 9*1
+% structures. 
+%
+% ------------------------------------------------------------------------
+% ----------------------- Introduction for variables ---------------------
+%
+% nTrialsPB         : number of tiral per block
+% timeLimit         : duration for showing sampled-dots and making response (s)  
+% redDomi           : the dominated color is red or not (1 = red dominated)
+% sampleRate        : the frequency of showing sampled dots (Hz) (20Hz = 50ms/dots)
+% redRatio          : ratio = red : green
+% apXYD             : the size of aperture (degree) 
+% trial_redDomi     : in the each trial, the dominated color is red or not (1 = red dominated)
+% trial_timeLimit   : in the each trial, the duration for showing dots and making response
+% trial_redLeft     : in the each trial, the location of two color options (1 = red located on left)
+% Pair_TimeDomiShif : how to pair Time and Dominated color and location of options
+% trial_redRatio    : supposed red is dominated color, ratio = red : green
+% trial_samples     : trials*dots = 36*70, because maximun dots is 70 dots (3.5s * 20Hz) 
+% 1 = red, 0 = green, -1= no sampling
+% realRED           : red:green, computed from sampling  
+% trial_x_shift     : defined the coordinate for dots (x-axis)
+% trial_y_shift     : defined the coordinate for dots (y-axis)
+%
+% ------------------------------------------------------------------------
+% ----------------------- Introduction for outcome ---------------------
+%
+% c

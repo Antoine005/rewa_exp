@@ -1,0 +1,5 @@
+function Readme
+%
+% Input foledr: the parameters for session1
+% In the input fodler, there are 16 subjects' mat files. 
+% 

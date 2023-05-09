@@ -1,0 +1,80 @@
+<Session_3_dots_reward_decay>
+
+-------------------------
+How to run the experiment
+-------------------------
+
+-Create inputs 
+1.create inputs by using "inputs/createInputs_SAT_Color_money_v2.m"
+2.createInputs_SAT_Color_money_v2(subID,t_riseFromChance,dec_slope)
+
+** in this version, we set t_riseFromChance = 0, and dec_slope is 1*6 numbers. (EX: [1 2 3  4 5 6]. 
+** You can get it from "norm_slope" in "rewSchedule_subID_panelty", the mat file you get after analyzed test session.
+
+-Execute function "run_myRDM_SAT_Color_money_penalty"
+ 2.run_myRDM_SAT_Color_money_penalty(subID,blockNo)
+
+trials = 36 trials X 10 blocks
+
+
+
+
+--------------------
+Experiment variables
+--------------------
+
+"inputs" folder : parameters
+"data"   folder : recoding data
+
+In the input folder, each mat file is used for each subject's inputs.
+Each mat file is 10*1 structure array and each row is used for each block.
+
+---------- Introduction for inputs variables ----------
+
+t_moneyOnset      : delay time from lottery onset
+nTrialsPB         : number of tiral per block
+timeLimit         : duration for showing sampled-dots and time limitation for making response (s)  
+redDomi           : the dominated color is red or not (1 = red dominated)
+sampleRate        : the frequency of showing sampled dots (Hz) (20Hz = 50ms/dots)
+redRatio          : ratio = red : green (each block used different ratio)
+sv                : kinds of start values
+apXYD             : the size of aperture (degree) 
+trial_redDomi     : the dominated color is red or not (1 = red dominated) for each trials.
+trial_timeLimit   : the duration for showing dots and time limitation for making response for each trials.
+trial_redLeft     : the location of two color options (1 = red located on left) for each trials.
+startValue        : start value for each trial
+trial_redRatio    : ideal_red_dot_number/ideal_all_dot_number, for each trials
+trial_samples     : 36 trials * 70 dots color (maximun dots is 70 dots (3.5s * 20Hz)), 1 = red, 0 = green, -1 = no sampling
+realRED           : sampling_red_dot_number/sampling_all_dot_number, computed from sampling, for each trials
+trial_x_shift     : defined the coordinate for dots (x-axis)
+trial_y_shift     : defined the coordinate for dots (y-axis)
+Pair_TimeDomiShif : all used combination of "trial_timeLimit", "trial_redDomi", "trial_redLeft", and "startValue"
+
+---------- Introduction for output data ----------
+
+1,       2,       3,           4,            5,  6,               7,                  8,       9       
+blockNo, trialNo, buttonPress, choosing_Red, RT, feedback_points, accumulated_points, correct, choosing_Left
+
+blockNo            : current block number
+trialNo            : current trial number under current block
+buttonPress        : whether button is pressed, 1 for button pressed, 0 for button not pressed. (bug: not reflecting real button pressing)
+choosing_Red       : 1 for choosing red dot; 0 for choosing green dot; -1 for no response
+RT                 : reaction time of subjects' judgement
+feedback_points    : win points for correct judgement, loss points for wrong judgement
+accumulated_points : cumulated points until current trials
+correct            : 1 for correct answer; 0 for wrong answer; -1 for no response
+choosing_left      : 1 for choosing left option; 0 for choosing right option; -1 for no response
+
+
+
+
+
+
+
+
+
+
+
+
+
+

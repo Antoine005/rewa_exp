@@ -1,0 +1,92 @@
+function plot_deviation_acrossSub
+
+sublist = {
+    'YYD';
+    'CYC';
+    'KLH';
+    'CLW';
+    'CHW';
+    'MHL';
+    'CHL';
+    'CJW';
+    'SPL';
+    'PCH';
+    'YYY';
+    'CJL';
+    'WJC';
+    'YHW'
+    };
+nSub = numel(sublist);
+
+for s = 1:nSub
+    subID = sublist{s}; 
+   mean_of_deviation(s,:) = analyze_deviationRT_optimal_actual(subID); % 14(subj) * 6 (timeLimit) vector
+   mean_of_deviation_lottery(s,:) = analyze_deviationRT_optimal_actual_lottery(subID);
+end
+
+H          = ttest(mean_of_deviation,0,0.5,'both');
+H_lottery  = ttest(mean_of_deviation_lottery,0,0.5,'both');
+
+
+%% plot for the Reward session
+acrossSub_deviationMean = mean(mean_of_deviation);
+acrossSub_deviationSD   = std(mean_of_deviation)./(nSub^0.5);
+figure(1)
+bar(1:6,acrossSub_deviationMean); hold on
+errorbar(1:6,acrossSub_deviationMean,acrossSub_deviationSD,'r.','linewidth',3)
+title('Reward session','fontSize',15)
+xlabel('reward schedule','fontSize',15)
+ylabel('Act - Opt','fontSize',15)
+axis([0 7 -2 2])
+% add t-test results
+for k = 1:6 
+    if H(k) == 1 && acrossSub_deviationMean(k)>=0
+        plot(k,acrossSub_deviationMean(k)+0.5,'k*','markersize',5)
+    elseif H(k) == 1 && acrossSub_deviationMean(k)<0
+        plot(k,acrossSub_deviationMean(k)-0.5,'k*','markersize',5)
+    end
+end
+box off
+
+%% plot for the time lottery
+acrossSub_deviationMean_lottery = mean(mean_of_deviation_lottery);
+acrossSub_deviationSD_lottery   = std(mean_of_deviation_lottery)./(nSub^0.5);
+figure(2)
+bar(1:6,acrossSub_deviationMean_lottery); hold on
+errorbar(1:6,acrossSub_deviationMean_lottery,acrossSub_deviationSD_lottery,'r.','linewidth',3)
+title('Lottery session','fontSize',15)
+xlabel('reward schedule','fontSize',15)
+ylabel('Act - Opt','fontSize',15)
+axis([0 7 -2 2])
+% add t-test results
+for k = 1:6 
+    if H_lottery(k) == 1 && acrossSub_deviationMean_lottery(k)>=0
+        plot(k,acrossSub_deviationMean_lottery(k)+0.5,'k*','markersize',5)
+    elseif H_lottery(k) == 1 && acrossSub_deviationMean_lottery(k)<0
+        plot(k,acrossSub_deviationMean_lottery(k)-0.5,'k*','markersize',5)
+    end
+end
+box off
+
+%% plot for difference comparison
+larger = max(acrossSub_deviationMean,acrossSub_deviationMean_lottery);
+smaller= min(acrossSub_deviationMean,acrossSub_deviationMean_lottery);
+H_compare = ttest2(mean_of_deviation,mean_of_deviation_lottery);
+figure(3)
+bar([acrossSub_deviationMean;acrossSub_deviationMean_lottery]',1); hold on
+title('Reward / Lottery session','fontSize',15)
+xlabel('reward schedule','fontSize',15)
+ylabel('Act - Opt','fontSize',15)
+legend('Reward session','Lottery session')
+axis([0 7 -2 2])
+% add t-test results
+for k = 1:6 
+    if H_compare(k) == 1 && larger(k)>=0
+        plot(k,larger(k)+0.5,'k*','markersize',5)
+    elseif H_compare(k) == 1 && larger(k)<0
+        plot(k,smaller(k)-0.5,'k*','markersize',5)
+    end
+end
+box off
+
+
