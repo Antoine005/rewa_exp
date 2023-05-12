@@ -1,4 +1,4 @@
-function inputs = createInputs_SAT_Color_v2(subID,pretest,ratio,timelimits)
+function inputs = createInputs_SAT_Color_v2(subID,pretest,ratio,ratio2,timelimits,timelimits2)
 %
 % 2014.03.10 CCT
 % Sequential sampling task.
@@ -31,7 +31,7 @@ if pretest ==1
     % In test session, timeLimit contained six conditions(1 to 6 seconds). Each
     % block used the same ratio of dominated color to sample.
 elseif pretest ==0
-    timeLimit=str2num(timelimits);%+str2num(timelimits2);
+    timeLimit=[str2num(timelimits),str2num(timelimits2)];%+str2num(timelimits2);
     nTrialsPerTime = 10;
     nBlocks = 4;
     % Dominanted Color. (1 = Red ; 0 = Green)
@@ -40,8 +40,7 @@ elseif pretest ==0
     % also enter [0.6 0.4], or [60 40] because we are going to normalize them
     % to probability anyway. Keep in mind that More can be either red or green.
     %M2L_ratio=input('Pleas tell me the Ratio of red dots\n(ex~[60 40]) :');
-    final_ratio = ratio; %+ ratio2;
-    M2L_ratio=repmat(final_ratio,nBlocks);
+    ratio = [ratio,ratio2];
     inputfile = ['Test_' subID '_SAT_Color.mat'];
     if exist(inputfile,'file')
         error('input file with this subject ID already exists')
@@ -92,7 +91,7 @@ else
     vect_redDomi = reshape(repmat(redDomi,nColorDomiPertTime,n_timeLimit/2),nTrialsPB,1);
 end
 vect_redLeft= repmat(redLeft,nRedLeftPB,1);
-show_Pair_TimeDomiShif=[vect_timeLimit vect_redDomi vect_redLeft]
+show_Pair_TimeDomiShif=[vect_timeLimit vect_redDomi vect_redLeft];
 
 %% maxmize sample size for each trial
 nSamplesMax = max(timeLimit)*sampleRate;
@@ -103,13 +102,26 @@ vect_samples = zeros(1,nSamplesMax);
 %aperture (10¢X). so we use half of 10¢X to estimate diameter
 distance=60; % 60 cm from screen to eyes
 ap_diameter=tan(5*pi/180)*10*distance;
-
+Random={[1 1], [1 2], [2 2],[2 1]};
+list=[];
 for i=1:nBlocks
+    idx=randperm(length(Random),1);
+    DT={Random{idx}};
+    while ismember(idx,list)
+        idx=randperm(length(Random),1);
+        DT=Random(idx);
+        if length(list) == 4
+            break
+        end
+    end
+    list = [list;idx];
     inputs(i).nTrialsPB = nTrialsPB;
-    inputs(i).timeLimit = timeLimit;
+    DT = DT{1,1};
+    inputs(i).timeLimit = timeLimit(DT(1));
     inputs(i).redDomi = redDomi;
     inputs(i).sampleRate = sampleRate;
-    inputs(i).redRatio = M2L_ratio(i,1);
+    M2L_ratio=repmat(ratio(DT(2)),nBlocks);
+
     inputs(i).apXYD = [0 0 ap_diameter];
     % want to randomize color dominance.
     randOrder = randperm(nTrialsPB);
