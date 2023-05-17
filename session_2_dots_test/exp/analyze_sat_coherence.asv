@@ -35,7 +35,7 @@ timeLimit = inputs(1).timeLimit;   % possible time limits
 cohSet =inputs(1).redRatio/100;              % possible coherence levels (just 1 in this experiment).
 
 nTrials = size(data,1)
-disp(nTrials)
+disp(cohSet)
 sum_rt=zeros(length(cohSet),length(timeLimit));
 % n_trials=sum_rt;
 n_trials=sum_rt;
@@ -246,8 +246,6 @@ end
 end
 
 mu_rt = sum_rt./n_trials;   % mean RT
-disp(n_correct)
-disp(n_trials)
 pHat = n_correct./n_trials;    % probability of correct
 
 rt_mat = [sum_rt(1,:);n_correct(1,:);n_trials(1,:)];
