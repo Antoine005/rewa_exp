@@ -34,8 +34,8 @@ elseif pretest ==0
     disp(timelimits)
     disp(timelimits2)
     timeLimit=[str2num(timelimits); str2num(timelimits2)];%+str2num(timelimits2);
-    nTrialsPerTime = 10;
-    nBlocks = 4;
+    nTrialsPerTime = 120;
+    nBlocks = 1;
     disp(timeLimit(1,:));
     % Dominanted Color. (1 = Red ; 0 = Green)
     redDomi = [1 0 0 1];
