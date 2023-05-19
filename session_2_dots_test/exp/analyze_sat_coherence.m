@@ -1,4 +1,4 @@
-function [rt_mat,min_RT,max_time] = analyze_sat_coherence(subID)
+function [total_pHat,total_mu_rt,total_pHat2,total_mu_rt2] = analyze_sat_coherence(subID)
 %
 % 2013.06.13. SWW. 
 %
@@ -33,14 +33,12 @@ data2 = load(datafile2);
 
 timeLimit = inputs(1).timeLimit;   % possible time limits
 cohSet =inputs(1).redRatio/100;              % possible coherence levels (just 1 in this experiment).
-
+disp(cohSet)
 nTrials = size(data,1)
-disp(nTrials)
 sum_rt=zeros(length(cohSet),length(timeLimit));
 % n_trials=sum_rt;
 n_trials=sum_rt;
 n_correct=sum_rt;
-
 sum_rt2=zeros(length(cohSet),length(timeLimit));
 n_trials2=sum_rt2;
 n_correct2=sum_rt2;
@@ -142,8 +140,8 @@ pHat = n_correct./n_trials;    % probability of correct
 
 rt_mat = [sum_rt(1,:);n_correct(1,:);n_trials(1,:)];
 
-mu_rt2 = sum_rt2./n_trials2;   % mean RT
-pHat2 = n_correct2./n_trials2;    % probability of correct
+total_pHat = mean(mean(pHat));
+total_mu_rt = mean(mean(mu_rt));
 
 rt_mat2 = [sum_rt2(1,:);n_correct2(1,:);n_trials2(1,:)];
 
@@ -152,8 +150,10 @@ rt_mat2 = [sum_rt2(1,:);n_correct2(1,:);n_trials2(1,:)];
 % row 3: total number of valid trials
 label_pHat = [];
 label_mu_rt = [];
-window_2= msgbox(sprintf(' %f \n',pHat),'ProbabilityCorrect task 1','help');
-window_3= msgbox(sprintf(' %f \n',mu_rt),'Mean RT task 1','help');
+x="";
+y="";
+window_2= msgbox(sprintf('%5.1f = %5.3f\n',[x;total_pHat]),'ProbabilityCorrect task 2','help');
+window_3= msgbox(sprintf('%5.1f = %5.3f\n',[y;total_mu_rt]),'Mean RT task 2','help');
 % window_4= msgbox(sprintf(' %f \n',mu_rt),'Mean RT','help');
 
 % Second Task
@@ -245,23 +245,22 @@ end
 end
 end
 
-mu_rt = sum_rt./n_trials;   % mean RT
-disp(n_correct)
-disp(n_trials)
-pHat = n_correct./n_trials;    % probability of correct
-
 rt_mat = [sum_rt(1,:);n_correct(1,:);n_trials(1,:)];
 
-mu_rt2 = sum_rt2./n_trials2;   % mean RT
-pHat2 = n_correct2./n_trials2;    % probability of correct
+mu_rt2 = sum_rt./n_trials;   % mean RT
+pHat2 = n_correct./n_trials;    % probability of correct
 
 rt_mat2 = [sum_rt2(1,:);n_correct2(1,:);n_trials2(1,:)];
 
 % row 1: sum of RT
 % row 2: total number of correct trials
 % row 3: total number of valid trials
-label_pHat = ['sum_of_RT' 'correct_trials' 'valid_trials'];
-label_mu_rt = [];
-window_2= msgbox(sprintf(' %f \n',pHat),'ProbabilityCorrect task 2','help');
-window_3= msgbox(sprintf(' %f \n',mu_rt),'Mean RT task 2','help');
+% label_pHat = ['sum_of_RT' 'correct_trials' 'valid_trials'];
+% label_mu_rt = [];
+total_pHat2 = mean(mean(pHat2));
+total_mu_rt2 = mean(mean(mu_rt2));
+x="";
+y="";
+window_2= msgbox(sprintf('%5.1f = %5.3f\n',[x;total_pHat2]),'ProbabilityCorrect task 2','help');
+window_3= msgbox(sprintf('%5.1f = %5.3f\n',[y;total_mu_rt2]),'Mean RT task 2','help');
 % window_4= msgbox(sprintf(' %f \n',mu_rt),'Mean RT','help');

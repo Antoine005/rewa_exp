@@ -1,4 +1,4 @@
-function []=analyze_results(subID)
+function [norm_slope,finalist,pC_hat]=analyze_results(subID,funcForm,max_probC,lottery)
 %
 % Generate decreasing reward schedule. In this version, just the slope
 % (normalized) of the decrease. You will need norm_slope when you create
@@ -33,13 +33,18 @@ elseif ispc
 end
 load(inputfile);
 
-[total_mu_rt,total_pHat,total_mu_rt2,total_pHat2] =analyze_sat_coherence(subID);
+[total_mu_rt,total_mu_pHat,total_mu_rt2,total_mu_pHat2] =analyze_sat_coherence(subID);
 % disp(rt_mat_SAT)
 
 %% save to file.
+if lottery == 1
+    filename=['results_' subID ];
+else
+filename=['results_b_' subID ];
+end
+save(filename,'total_mu_rt','total_mu_pHat','total_mu_rt2','finalist_gain_afo_t','pC_hat','pC_afo_t','t_grid');
 
-filename=['data/results/results_' subID ];
 
-ID=subID;
-save(filename,'ID','total_mu_rt','total_pHat','total_mu_rt2','total_pHat2');
+
+
 
