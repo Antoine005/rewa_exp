@@ -32,7 +32,7 @@ if pretest ==1
     % block used the same ratio of dominated color to sample.
 elseif pretest ==0
     disp(timelimits)
-    timeLimit=[str2num(timelimits)];%+str2num(timelimits2);
+    timeLimit=[timelimits)];%+str2num(timelimits2);
     nTrialsPerTime = 60;
     nBlocks = 1;
     disp(timeLimit);
@@ -102,7 +102,7 @@ vect_samples = zeros(1,nSamplesMax);
 
 %% size of aperture
 %according to Newsome, 1988. He puts the Random-dots in a circular
-%aperture (10¢X). so we use half of 10¢X to estimate diameter
+%aperture (10Â¢X). so we use half of 10Â¢X to estimate diameter
 distance=60; % 60 cm from screen to eyes
 ap_diameter=tan(5*pi/180)*10*distance;
 for i=1:nBlocks
@@ -110,7 +110,7 @@ for i=1:nBlocks
     inputs(i).timeLimit = timeLimit;
     inputs(i).redDomi = redDomi;
     inputs(i).sampleRate = sampleRate;
-    M2L_ratio=repmat(ratio,nBlocks/2);
+    M2L_ratio=repmat(ratio,nBlocks);
     inputs(i).redRatio = M2L_ratio(i,1);
     inputs(i).apXYD = [0 0 ap_diameter];
     % want to randomize color dominance.
