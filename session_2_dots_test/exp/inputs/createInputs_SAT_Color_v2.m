@@ -1,4 +1,4 @@
-function inputs = createInputs_SAT_Color_v2(subID,pretest,ratio,ratio2,timelimits)
+function inputs = createInputs_SAT_Color_v2(subID,pretest,ratio,timelimits)
 %
 % 2014.03.10 CCT
 % Sequential sampling task.
@@ -33,8 +33,8 @@ if pretest ==1
 elseif pretest ==0
     disp(timelimits)
     timeLimit=[str2num(timelimits)];%+str2num(timelimits2);
-    nTrialsPerTime = 60;
-    nBlocks = 1;
+    nTrialsPerTime = 1;
+    nBlocks = 240;
     disp(timeLimit);
     % Dominanted Color. (1 = Red ; 0 = Green)
     redDomi = [1 0 0 1];
@@ -42,7 +42,9 @@ elseif pretest ==0
     % also enter [0.6 0.4], or [60 40] because we are going to normalize them
     % to probability anyway. Keep in mind that More can be either red or green.
     %M2L_ratio=input('Pleas tell me the Ratio of red dots\n(ex~[60 40]) :');
-    ratio = [str2num(ratio); str2num(ratio2)];
+    % ratio = ratio;
+    M2L_ratio=repmat(ratio,nBlocks/2);
+
     inputfile = ['Test_' subID '_SAT_Color.mat'];
     if exist(inputfile,'file')
         error('input file with this subject ID already exists')
@@ -110,7 +112,6 @@ for i=1:nBlocks
     inputs(i).timeLimit = timeLimit;
     inputs(i).redDomi = redDomi;
     inputs(i).sampleRate = sampleRate;
-    M2L_ratio=repmat(ratio,nBlocks/2);
     inputs(i).redRatio = M2L_ratio(i,1);
     inputs(i).apXYD = [0 0 ap_diameter];
     % want to randomize color dominance.
@@ -129,9 +130,7 @@ for i=1:nBlocks
         
         %% start drawing samples based on ratio we set
         % if dominated color is red, the redRatio is higher. (EX: 0.55)
-
         redCut = M2L_ratio(i,1)/sum(M2L_ratio(i,1:2));
-
         if inputs(i).trial_redDomi(j,1)==1
             inputs(i).trial_redRatio(j,1)=redCut;
         elseif inputs(i).trial_redDomi(j,1)==0
@@ -201,4 +200,3 @@ end
 
 inputs=inputs';
 save(inputfile,'inputs');
-
