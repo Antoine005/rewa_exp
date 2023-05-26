@@ -140,9 +140,10 @@ centerText(screenInfo.curWindow,'Each time you can earn 1 point if you choose th
 centerText(screenInfo.curWindow,'If you miss the deadline you will lose 3 points.',xCtr,yCtr+200,white)
 centerText(screenInfo.curWindow,'So make sure you dont miss the deadline!',xCtr,yCtr+250,white)
 centerText(screenInfo.curWindow,'In between, your total score will be given regularly. You can also take a short break at those times.',xCtr,yCtr+300,white)
-centerText(screenInfo.curWindow,'Start by pressing 9.',xCtr,yCtr+350,white)
+centerText(screenInfo.curWindow,'Start by pressing spacebar.',xCtr,yCtr+350,white)
 Screen('Flip',screenInfo.curWindow);
 
+KbName()
 while 1
     [tik2,secs,keyCode2]=KbCheck;
     disp("in while")
@@ -153,7 +154,7 @@ while 1
         %   break
         %end
         
-        if strcmp(KbName(keyCode2),'9(')||strcmp(KbName(keyCode2),'9')
+        if strcmp(KbName(keyCode2),'space(')||strcmp(KbName(keyCode2),'space')
             disp("in close")
             break
         end

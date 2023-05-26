@@ -31,12 +31,9 @@ if pretest ==1
     % In test session, timeLimit contained six conditions(1 to 6 seconds). Each
     % block used the same ratio of dominated color to sample.
 elseif pretest ==0
-    disp(timelimits)
-    disp(timelimits2)
-    timeLimit=[str2num(timelimits); str2num(timelimits2)];%+str2num(timelimits2);
-    nTrialsPerTime = 10;
-    nBlocks = 4;
-    disp(timeLimit(1,:));
+    timeLimit=[str2num(timelimits) str2num(timelimits2)];%+str2num(timelimits2);
+    nTrialsPerTime = 1;
+    nBlocks = 240;
     % Dominanted Color. (1 = Red ; 0 = Green)
     redDomi = [1 0 0 1];
     % M2L_ratio (More to Less ratio). If M2L_ratio=6:4, then you need to enter [6 4]. you could
@@ -66,7 +63,6 @@ elseif pretest ==3
     end
     
 end
-
 %% parameter setting
 % Sample size in a second (Hz)
 sampleRate = 20;
@@ -87,12 +83,11 @@ nColorDomiPertTime = (nTrialsPB/n_timeLimit)/n_color;
 nRedLeftPB=nTrialsPB/n_shift;
 
 %% create a row of parameter
-vect_timeLimit = reshape(repmat(timeLimit(1,:),nTrialsPerTime,1),nTrialsPB,1);
-vect_timeLimit2 = reshape(repmat(timeLimit(2,:),nTrialsPerTime,1),nTrialsPB,1);
+vect_timeLimit = reshape(repmat(timeLimit,nTrialsPerTime,1),nTrialsPB,1);
 if pretest == 1
     vect_redDomi = reshape(sort(repmat(redDomi,nColorDomiPertTime,n_timeLimit)),nTrialsPB,1);
 else
-    vect_redDomi = reshape(repmat(redDomi,nColorDomiPertTime,n_timeLimit/2),nTrialsPB,1);
+    vect_redDomi = reshape(sort(repmat(redDomi,nColorDomiPertTime,n_timeLimit)),nTrialsPB,[]);
 end
 vect_redLeft= repmat(redLeft,nRedLeftPB,1);
 show_Pair_TimeDomiShif=[vect_timeLimit vect_redDomi vect_redLeft];
@@ -106,36 +101,18 @@ vect_samples = zeros(1,nSamplesMax);
 %aperture (10¢X). so we use half of 10¢X to estimate diameter
 distance=60; % 60 cm from screen to eyes
 ap_diameter=tan(5*pi/180)*10*distance;
-Random={[1 1], [1 2], [2 2],[2 1]};
-list=[];
 for i=1:nBlocks
-    idx=randperm(length(Random),1);
-    DT={Random{idx}};
-    while ismember(idx,list)
-        idx=randperm(length(Random),1);
-        DT=Random(idx);
-        if length(list) == 4
-            break
-        end
-    end
-    list = [list;idx];
     inputs(i).nTrialsPB = nTrialsPB;
-    DT = DT{1,1};
-    inputs(i).timeLimit = timeLimit(DT(1),:);
+    inputs(i).timeLimit = timeLimit;
     inputs(i).redDomi = redDomi;
     inputs(i).sampleRate = sampleRate;
-    M2L_ratio=repmat(ratio(DT(2),:),nBlocks);
     inputs(i).redRatio = M2L_ratio(i,1);
     inputs(i).apXYD = [0 0 ap_diameter];
     % want to randomize color dominance.
     randOrder = randperm(nTrialsPB);
     randVect_redDomi = vect_redDomi(randOrder,:);
     % want to randomize time limit
-    if(DT(1)==1)
-        randVect_timeLimit = vect_timeLimit(randOrder);
-    else
-        randVect_timeLimit = vect_timeLimit2(randOrder);
-    end
+    randVect_timeLimit = vect_timeLimit(randOrder);
     % randomly shift red_choice
     randVect_redLeft = vect_redLeft(randOrder,:);
     
@@ -148,8 +125,6 @@ for i=1:nBlocks
         %% start drawing samples based on ratio we set
         % if dominated color is red, the redRatio is higher. (EX: 0.55)
         redCut = M2L_ratio(i,1)/sum(M2L_ratio(i,1:2));
-        redCut2 = M2L_ratio(i,1)/sum(M2L_ratio(i,1:2));
-
         if inputs(i).trial_redDomi(j,1)==1
             inputs(i).trial_redRatio(j,1)=redCut;
         elseif inputs(i).trial_redDomi(j,1)==0
@@ -219,4 +194,3 @@ end
 
 inputs=inputs';
 save(inputfile,'inputs');
-

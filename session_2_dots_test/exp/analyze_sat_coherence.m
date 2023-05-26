@@ -1,4 +1,4 @@
-function [total_pHat,total_mu_rt,total_pHat2,total_mu_rt2] = analyze_sat_coherence(subID)
+function [total_pHat,total_mu_rt,total_pHat2,total_mu_rt2,n_correct,n_correct2] = analyze_sat_coherence(subID)
 %
 % 2013.06.13. SWW. 
 %
@@ -152,8 +152,8 @@ label_pHat = [];
 label_mu_rt = [];
 x="";
 y="";
-window_2= msgbox(sprintf('%5.1f = %5.3f\n',[x;total_pHat]),'ProbabilityCorrect task 2','help');
-window_3= msgbox(sprintf('%5.1f = %5.3f\n',[y;total_mu_rt]),'Mean RT task 2','help');
+% window_2= msgbox(sprintf('%5.1f = %5.3f\n',[x;total_pHat]),'ProbabilityCorrect task 1','help');
+% window_3= msgbox(sprintf('%5.1f = %5.3f\n',[y;total_mu_rt]),'Mean RT task 1','help');
 % window_4= msgbox(sprintf(' %f \n',mu_rt),'Mean RT','help');
 
 % Second Task
@@ -248,7 +248,7 @@ end
 rt_mat = [sum_rt(1,:);n_correct(1,:);n_trials(1,:)];
 
 mu_rt2 = sum_rt./n_trials;   % mean RT
-pHat2 = n_correct./n_trials;    % probability of correct
+pHat2 = n_correct2./n_trials;    % probability of correct
 
 rt_mat2 = [sum_rt2(1,:);n_correct2(1,:);n_trials2(1,:)];
 
@@ -261,6 +261,6 @@ total_pHat2 = mean(mean(pHat2));
 total_mu_rt2 = mean(mean(mu_rt2));
 x="";
 y="";
-window_2= msgbox(sprintf('%5.1f = %5.3f\n',[x;total_pHat2]),'ProbabilityCorrect task 2','help');
-window_3= msgbox(sprintf('%5.1f = %5.3f\n',[y;total_mu_rt2]),'Mean RT task 2','help');
+% window_2= msgbox(sprintf('%5.1f = %5.3f\n',[x;total_pHat2]),'ProbabilityCorrect task 2','help');
+% window_3= msgbox(sprintf('%5.1f = %5.3f\n',[y;total_mu_rt2]),'Mean RT task 2','help');
 % window_4= msgbox(sprintf(' %f \n',mu_rt),'Mean RT','help');
