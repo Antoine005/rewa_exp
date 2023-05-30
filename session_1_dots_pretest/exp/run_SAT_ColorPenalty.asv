@@ -89,29 +89,7 @@ load(inputfile);
 nTrialsPB = inputs(blockNo).nTrialsPB;
 slack     = Screen('GetFlipInterval',screenInfo.curWindow)/2;
 
-if blockNo==1
-    % Check subject is ready for the task
-    %centerText(screenInfo.curWindow,['Block ' num2str(blockNo)],xCtr,yCtr-100,white)
-    centerText(screenInfo.curWindow,'Welcome to the experiment!',xCtr,yCtr-100,white)
-    centerText(screenInfo.curWindow,'In the next hour you will be asked to do one task.',xCtr,yCtr-50,white)
-    centerText(screenInfo.curWindow,'The intention is to choose the dominant color (the most presented color)',xCtr,yCtr,white)
-    centerText(screenInfo.curWindow,'in a patch of Red and Green dots, within different deadlines.',xCtr,yCtr+50,white)
-    centerText(screenInfo.curWindow,'You do this by pressing the "right arrow" (for RIGHT circle) and "left arrow" (for LEFT circle).',xCtr,yCtr+100,white)
-    centerText(screenInfo.curWindow,'Good luck!',xCtr,yCtr+150,white)
-    centerText(screenInfo.curWindow,'Start by pressing spacebar.',xCtr,yCtr+200,white)
-    
-    Screen('Flip',screenInfo.curWindow);
-    
-    while 1
-        [tik,secs,keyCode]=KbCheck;
-        if tik
-            if strcmp(KbName(keyCode),'space(')||strcmp(KbName(keyCode),'space')
-                break
-            end
-            while KbCheck;end
-        end
-    end
-end
+if
 
 % load output file. because want to get total_sum
 datafile = resultsfile;

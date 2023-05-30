@@ -64,7 +64,7 @@ barSize=800;
 xLeft = xCtr-barSize/2;
 yBar = yCtr+50;
 barHeight=20;
-maxSum=30; % Set maximum sum (greater than this sum, the reward line gets reset)
+maxSum=1; % Set maximum sum (greater than this sum, the reward line gets reset)
 pixPerDollar=barSize/maxSum;
 grid_int=5;
 dollarGrid=0:grid_int:maxSum;
@@ -104,64 +104,65 @@ slack = Screen('GetFlipInterval',screenInfo.curWindow)/2;
 % Wait for backtick signal to initiate the experiment. The MR console will send backtick signal once
 % the scanning starts.
 %centerText(screenInfo.curWindow,['Block ' num2str(blockNo)],xCtr,yCtr,white)
-centerText(screenInfo.curWindow,'Welcome to the experiment!',xCtr,yCtr-150,white)
-centerText(screenInfo.curWindow,'In this experiment, you will be asked to do two tasks.',xCtr,yCtr-100,white)
-centerText(screenInfo.curWindow,'There will be XX trials in the experiment, and it will take about 1 hour. ',xCtr,yCtr-50,white)
-centerText(screenInfo.curWindow,'The intention of the both tasks is to choose the dominant color ',xCtr,yCtr,white)
-centerText(screenInfo.curWindow,'(the most presented color) in a patch of Red and Green dots, within different deadlines.',xCtr,yCtr+50,white)
-centerText(screenInfo.curWindow,'A specific explanation is given prior to each task.',xCtr,yCtr+100,white)
-centerText(screenInfo.curWindow,'Good luck!',xCtr,yCtr+150,white)
-centerText(screenInfo.curWindow,'Start by pressing spacebar.',xCtr,yCtr+200,white)
-Screen('Flip',screenInfo.curWindow);
-
-while 1
-    [tik,secs,keyCode]=KbCheck;
-    if tik
-        %if strcmp(KbName(keyCode),'7(')||strcmp(KbName(keyCode),'7')
-        %    Screen('CloseAll')
-        %    break
-        %end
-        if strcmp(KbName(keyCode),'space(')||strcmp(KbName(keyCode),'space')
-            break
+if blockNo == 1
+    centerText(screenInfo.curWindow,'Welcome to the experiment!',xCtr,yCtr-150,white)
+    centerText(screenInfo.curWindow,'In this experiment, you will be asked to do two tasks.',xCtr,yCtr-100,white)
+    centerText(screenInfo.curWindow,'There will be XX trials in the experiment, and it will take about 1 hour. ',xCtr,yCtr-50,white)
+    centerText(screenInfo.curWindow,'The intention of the both tasks is to choose the dominant color ',xCtr,yCtr,white)
+    centerText(screenInfo.curWindow,'(the most presented color) in a patch of Red and Green dots, within different deadlines.',xCtr,yCtr+50,white)
+    centerText(screenInfo.curWindow,'A specific explanation is given prior to each task.',xCtr,yCtr+100,white)
+    centerText(screenInfo.curWindow,'Good luck!',xCtr,yCtr+150,white)
+    centerText(screenInfo.curWindow,'Start by pressing spacebar.',xCtr,yCtr+200,white)
+    Screen('Flip',screenInfo.curWindow);
+    
+    while 1
+        [tik,secs,keyCode]=KbCheck;
+        if tik
+            %if strcmp(KbName(keyCode),'7(')||strcmp(KbName(keyCode),'7')
+            %    Screen('CloseAll')
+            %    break
+            %end
+            if strcmp(KbName(keyCode),'space(')||strcmp(KbName(keyCode),'space')
+                break
+            end
+            while KbCheck;end
         end
-        while KbCheck;end
+    end
+    
+    centerText(screenInfo.curWindow,'Here is the instruction for the first task.',xCtr,yCtr-250,white)
+    centerText(screenInfo.curWindow,'In the following trials you will be asked to choose the dominant color',xCtr,yCtr-200,white)
+    centerText(screenInfo.curWindow,'(the most presented color) in a patch of Red and Green dots, within different deadlines.',xCtr,yCtr-150,white)
+    centerText(screenInfo.curWindow,'After fixation, Red and Green circles appeared with white arc on the screen. ',xCtr,yCtr-100,white)
+    centerText(screenInfo.curWindow,'The arc represented the available time, the Red and Green dots appeared randomly',xCtr,yCtr-50,white)
+    centerText(screenInfo.curWindow,'around the center of the screen while the size of the arc started to decrease.',xCtr,yCtr,white)
+    centerText(screenInfo.curWindow,'You do this by pressing the "right arrow" (for RIGHT circle) and "left arrow" (for LEFT circle).',xCtr,yCtr+50,white)
+    centerText(screenInfo.curWindow,'You will receive feedback on your performance using points. Once you reach a total score of 100 points, the task is over.',xCtr,yCtr+100,white)
+    centerText(screenInfo.curWindow,'Each time you can earn 1 point if you choose the correct answer. You lose 3 points for an incorrect choice.',xCtr,yCtr+150,white)
+    centerText(screenInfo.curWindow,'If you miss the deadline you will lose 3 points.',xCtr,yCtr+200,white)
+    centerText(screenInfo.curWindow,'So make sure you dont miss the deadline!',xCtr,yCtr+250,white)
+    centerText(screenInfo.curWindow,'In between, your total score will be given regularly. You can also take a short break at those times.',xCtr,yCtr+300,white)
+    centerText(screenInfo.curWindow,'Start by pressing spacebar.',xCtr,yCtr+350,white)
+    Screen('Flip',screenInfo.curWindow);
+    
+    KbName()
+    while 1
+        [tik2,secs,keyCode2]=KbCheck;
+        disp("in while")
+    
+        if tik2
+            %if strcmp(KbName(keyCode),'7(')||strcmp(KbName(keyCode),'7')
+            %    Screen('CloseAll')
+            %   break
+            %end
+            
+            if strcmp(KbName(keyCode2),'space(')||strcmp(KbName(keyCode2),'space')
+                disp("in close")
+                break
+            end
+            while KbCheck;end
+        end
     end
 end
-
-centerText(screenInfo.curWindow,'Here is the instruction for the first task.',xCtr,yCtr-250,white)
-centerText(screenInfo.curWindow,'In the following trials you will be asked to choose the dominant color',xCtr,yCtr-200,white)
-centerText(screenInfo.curWindow,'(the most presented color) in a patch of Red and Green dots, within different deadlines.',xCtr,yCtr-150,white)
-centerText(screenInfo.curWindow,'After fixation, Red and Green circles appeared with white arc on the screen. ',xCtr,yCtr-100,white)
-centerText(screenInfo.curWindow,'The arc represented the available time, the Red and Green dots appeared randomly',xCtr,yCtr-50,white)
-centerText(screenInfo.curWindow,'around the center of the screen while the size of the arc started to decrease.',xCtr,yCtr,white)
-centerText(screenInfo.curWindow,'You do this by pressing the "right arrow" (for RIGHT circle) and "left arrow" (for LEFT circle).',xCtr,yCtr+50,white)
-centerText(screenInfo.curWindow,'You will receive feedback on your performance using points. Once you reach a total score of 100 points, the task is over.',xCtr,yCtr+100,white)
-centerText(screenInfo.curWindow,'Each time you can earn 1 point if you choose the correct answer. You lose 3 points for an incorrect choice.',xCtr,yCtr+150,white)
-centerText(screenInfo.curWindow,'If you miss the deadline you will lose 3 points.',xCtr,yCtr+200,white)
-centerText(screenInfo.curWindow,'So make sure you dont miss the deadline!',xCtr,yCtr+250,white)
-centerText(screenInfo.curWindow,'In between, your total score will be given regularly. You can also take a short break at those times.',xCtr,yCtr+300,white)
-centerText(screenInfo.curWindow,'Start by pressing spacebar.',xCtr,yCtr+350,white)
-Screen('Flip',screenInfo.curWindow);
-
-KbName()
-while 1
-    [tik2,secs,keyCode2]=KbCheck;
-    disp("in while")
-
-    if tik2
-        %if strcmp(KbName(keyCode),'7(')||strcmp(KbName(keyCode),'7')
-        %    Screen('CloseAll')
-        %   break
-        %end
-        
-        if strcmp(KbName(keyCode2),'space(')||strcmp(KbName(keyCode2),'space')
-            disp("in close")
-            break
-        end
-        while KbCheck;end
-    end
-end
-
 % load output file. because want to get total_sum
 % outputdir = [pwd '/data/'];
 datafile = resultsfile;
@@ -205,7 +206,6 @@ for trialNo=1:nTrialsPB
     %%%%%%%%%%%%%%   Judgement   %%%%%%%%%%%%%%%%%%
     redLeft=inputs(blockNo).trial_redLeft(trialNo,1) ;
     if chooseLeft ~=-1
-    disp(chooseLeft)
         if chooseLeft == redLeft
             chooseR=1;
         elseif chooseLeft==-2
@@ -254,21 +254,41 @@ for trialNo=1:nTrialsPB
     t_feedbackStart=Screen(screenInfo.curWindow,'Flip',[],1);
     total_sum=total_sum+win;    %cumulative winning from the start of the experiment.
     rewLineTotal=rewLineTotal+win;
+    disp(rewLineTotal)
+    disp(maxSum)
     
     %%%%--------------------------------------------------------------------
     
     % Display reward line.
-    if rewLineTotal>maxSum
-        rewLineTotal=rewLineTotal-maxSum;
-        centerText(screenInfo.curWindow,'Congratulations!! $40 just deposited to your account',xCtr,yCtr-yCtr/2,yellow)
-    end
+    % if rewLineTotal>maxSum
+    %     rewLineTotal=rewLineTotal-maxSum;
+    %     Screen('Flip',screenInfo.curWindow);
+    %     centerText(screenInfo.curWindow,'Congratulations!! you reach max score press space to exit',xCtr,yCtr-yCtr/2,yellow)
+    %     while 1
+    %         [tik2,secs,keyCode2]=KbCheck;
+    %         disp("in while")
+    % 
+    %         if tik2
+    %             %if strcmp(KbName(keyCode),'7(')||strcmp(KbName(keyCode),'7')
+    %             %    Screen('CloseAll')
+    %             %   break
+    %             %end
+    % 
+    %             if strcmp(KbName(keyCode2),'space(')||strcmp(KbName(keyCode2),'space')
+    %                 break
+    %             end
+    %             while KbCheck;end
+    %         end
+    %     end
+    %     Screen('CloseAll');
+    % end
     if rewLineTotal<0
         rewLineTotalInPix=0;
     else
         rewLineTotalInPix=round(rewLineTotal*pixPerDollar);
     end
     %Screen('FillRect',screenInfo.curWindow,yellow,[xLeft yBar xLeft+rewLineTotalInPix yBar+barHeight]);
-    if mod(trialNo,10)==0
+    if trialNo==3
          centerText(screenInfo.curWindow,['Your total score is ' num2str(total_sum) ' points'],xCtr,yCtr-300,white)
     end
 
