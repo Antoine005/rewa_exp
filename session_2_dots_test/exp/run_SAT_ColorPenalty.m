@@ -1,4 +1,4 @@
-function run_SAT_ColorPenalty(subID,blockNo,pretest)
+function result = run_SAT_ColorPenalty(subID,blockNo,pretest)
 %
 % Run tradeoff experiment.
 %
@@ -64,7 +64,7 @@ barSize=800;
 xLeft = xCtr-barSize/2;
 yBar = yCtr+50;
 barHeight=20;
-maxSum=1; % Set maximum sum (greater than this sum, the reward line gets reset)
+maxSum=100; % Set maximum sum (greater than this sum, the reward line gets reset)
 pixPerDollar=barSize/maxSum;
 grid_int=5;
 dollarGrid=0:grid_int:maxSum;
@@ -146,9 +146,7 @@ if blockNo == 1
     
     KbName()
     while 1
-        [tik2,secs,keyCode2]=KbCheck;
-        disp("in while")
-    
+        [tik2,secs,keyCode2]=KbCheck;    
         if tik2
             %if strcmp(KbName(keyCode),'7(')||strcmp(KbName(keyCode),'7')
             %    Screen('CloseAll')
@@ -156,13 +154,34 @@ if blockNo == 1
             %end
             
             if strcmp(KbName(keyCode2),'space(')||strcmp(KbName(keyCode2),'space')
-                disp("in close")
                 break
             end
             while KbCheck;end
         end
     end
 end
+% else
+%     centerText(screenInfo.curWindow,'For next block press spacebar.',xCtr,yCtr+350,white)
+%     Screen('Flip',screenInfo.curWindow);
+%     KbName()
+%     while 1
+%         [tik2,secs,keyCode2]=KbCheck;
+%         disp("in while")
+% 
+%         if tik2
+%             %if strcmp(KbName(keyCode),'7(')||strcmp(KbName(keyCode),'7')
+%             %    Screen('CloseAll')
+%             %   break
+%             %end
+% 
+%             if strcmp(KbName(keyCode2),'space(')||strcmp(KbName(keyCode2),'space')
+%                 disp("in close")
+%                 break
+%             end
+%             while KbCheck;end
+%         end
+%     end
+% end
 % load output file. because want to get total_sum
 % outputdir = [pwd '/data/'];
 datafile = resultsfile;
@@ -254,42 +273,45 @@ for trialNo=1:nTrialsPB
     t_feedbackStart=Screen(screenInfo.curWindow,'Flip',[],1);
     total_sum=total_sum+win;    %cumulative winning from the start of the experiment.
     rewLineTotal=rewLineTotal+win;
-    disp(rewLineTotal)
-    disp(maxSum)
+
     
     %%%%--------------------------------------------------------------------
-    
+
     % Display reward line.
-    % if rewLineTotal>maxSum
-    %     rewLineTotal=rewLineTotal-maxSum;
-    %     Screen('Flip',screenInfo.curWindow);
-    %     centerText(screenInfo.curWindow,'Congratulations!! you reach max score press space to exit',xCtr,yCtr-yCtr/2,yellow)
-    %     while 1
-    %         [tik2,secs,keyCode2]=KbCheck;
-    %         disp("in while")
-    % 
-    %         if tik2
-    %             %if strcmp(KbName(keyCode),'7(')||strcmp(KbName(keyCode),'7')
-    %             %    Screen('CloseAll')
-    %             %   break
-    %             %end
-    % 
-    %             if strcmp(KbName(keyCode2),'space(')||strcmp(KbName(keyCode2),'space')
-    %                 break
-    %             end
-    %             while KbCheck;end
-    %         end
-    %     end
-    %     Screen('CloseAll');
-    % end
-    if rewLineTotal<0
-        rewLineTotalInPix=0;
+    if total_sum>maxSum
+        rewLineTotal=rewLineTotal-maxSum;
+        centerText(screenInfo.curWindow,'Congratulations!! You reached 100 points end of Task 1',xCtr,yCtr-yCtr/2,yellow)
+        centerText(screenInfo.curWindow, 'Press spacebar to continue', xCtr, yCtr+200, white)
+        Screen('Flip', screenInfo.curWindow);
+        while 1
+            [tik, secs, keyCode] = KbCheck;
+            if tik && (strcmp(KbName(keyCode), 'space(') || strcmp(KbName(keyCode), 'space'))
+                break
+            end
+        end
+        result = 1;
+        Screen('CloseAll');
+        return;
+
+    end
+
+    if rewLineTotal < 0
+        rewLineTotalInPix = 0;
     else
-        rewLineTotalInPix=round(rewLineTotal*pixPerDollar);
+        rewLineTotalInPix = round(rewLineTotal * pixPerDollar);
     end
     %Screen('FillRect',screenInfo.curWindow,yellow,[xLeft yBar xLeft+rewLineTotalInPix yBar+barHeight]);
-    if trialNo==3
-         centerText(screenInfo.curWindow,['Your total score is ' num2str(total_sum) ' points'],xCtr,yCtr-300,white)
+
+    if trialNo == nTrialsPB
+        centerText(screenInfo.curWindow, ['Your total score is ' num2str(total_sum) ' points'], xCtr, yCtr-150, white)
+        centerText(screenInfo.curWindow, 'Press spacebar to continue', xCtr, yCtr, white)
+        Screen('Flip', screenInfo.curWindow);
+        while 1
+            [tik, secs, keyCode] = KbCheck;
+            if tik && (strcmp(KbName(keyCode), 'space(') || strcmp(KbName(keyCode), 'space'))
+                break
+            end
+        end
     end
 
     % Draw dollar grid line and mark dollar in number on screen

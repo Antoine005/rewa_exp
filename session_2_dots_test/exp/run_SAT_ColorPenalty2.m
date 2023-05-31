@@ -1,4 +1,4 @@
-function run_SAT_ColorPenalty2(subID,blockNo,pretest)
+function result = run_SAT_ColorPenalty2(subID,blockNo,pretest)
 %
 % Run tradeoff experiment.
 %
@@ -64,7 +64,7 @@ barSize=800;
 xLeft = xCtr-barSize/2;
 yBar = yCtr+50;
 barHeight=20;
-maxSum=30; % Set maximum sum (greater than this sum, the reward line gets reset)
+maxSum=-10; % Set maximum sum (greater than this sum, the reward line gets reset)
 pixPerDollar=barSize/maxSum;
 grid_int=5;
 dollarGrid=0:grid_int:maxSum;
@@ -104,7 +104,7 @@ slack = Screen('GetFlipInterval',screenInfo.curWindow)/2;
 % Wait for backtick signal to initiate the experiment. The MR console will send backtick signal once
 % the scanning starts.
 %centerText(screenInfo.curWindow,['Block ' num2str(blockNo)],xCtr,yCtr-300,white)
-if blockNo
+if blockNo == 1
     centerText(screenInfo.curWindow,'Here is the instruction for the second task.',xCtr,yCtr-350,white)
     centerText(screenInfo.curWindow,'In the following trials you will be asked to choose the dominant color (the most presented color)',xCtr,yCtr-300,white)
     centerText(screenInfo.curWindow,'in a patch of Red and Green dots, within different deadlines.',xCtr,yCtr-250,white)
@@ -180,7 +180,6 @@ for trialNo=1:nTrialsPB
     %%%%%%%%%%%%%%   Judgement   %%%%%%%%%%%%%%%%%%
     redLeft=inputs(blockNo).trial_redLeft(trialNo,1) ;
     if chooseLeft ~=-1
-    disp(chooseLeft)
         if chooseLeft == redLeft
             chooseR=1;
         elseif chooseLeft==-2
@@ -233,9 +232,21 @@ for trialNo=1:nTrialsPB
     %%%%--------------------------------------------------------------------
     
     % Display reward line.
-    if rewLineTotal>maxSum
+    if total_sum>maxSum
         rewLineTotal=rewLineTotal-maxSum;
-        centerText(screenInfo.curWindow,'Congratulations!! $40 just deposited to your account',xCtr,yCtr-yCtr/2,yellow)
+        centerText(screenInfo.curWindow,'Congratulations!! You reached 100 points end of Task 2',xCtr,yCtr-yCtr/2,yellow)
+        centerText(screenInfo.curWindow, 'Press spacebar to continue', xCtr, yCtr+200, white)
+        Screen('Flip', screenInfo.curWindow);
+        while 1
+            [tik, secs, keyCode] = KbCheck;
+            if tik && (strcmp(KbName(keyCode), 'space(') || strcmp(KbName(keyCode), 'space'))
+                break
+            end
+        end
+        result = 1;
+        Screen('CloseAll');
+        return;
+
     end
     if rewLineTotal<0
         rewLineTotalInPix=0;
@@ -243,8 +254,18 @@ for trialNo=1:nTrialsPB
         rewLineTotalInPix=round(rewLineTotal*pixPerDollar);
     end
     %Screen('FillRect',screenInfo.curWindow,yellow,[xLeft yBar xLeft+rewLineTotalInPix yBar+barHeight]);
-    if mod(trialNo,10)==0
-         centerText(screenInfo.curWindow,['Your total score is ' num2str(total_sum) ' points'],xCtr,yCtr-300,white)
+    if trialNo == nTrialsPB
+         centerText(screenInfo.curWindow, ['Your total score is ' num2str(total_sum) ' points'], xCtr, yCtr-150, white)
+
+        centerText(screenInfo.curWindow, 'Press spacebar to continue', xCtr, yCtr, white)
+        Screen('Flip', screenInfo.curWindow);
+        KbName()
+        while 1
+            [tik, secs, keyCode] = KbCheck;
+            if tik && (strcmp(KbName(keyCode), 'space(') || strcmp(KbName(keyCode), 'space'))
+                break
+            end
+        end
     end
     
     % Draw dollar grid line and mark dollar in number on screen
