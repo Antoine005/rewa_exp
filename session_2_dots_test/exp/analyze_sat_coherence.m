@@ -148,12 +148,12 @@ rt_mat2 = [sum_rt2(1,:);n_correct2(1,:);n_trials2(1,:)];
 % row 1: sum of RT
 % row 2: total number of correct trials
 % row 3: total number of valid trials
-label_pHat = [];
-label_mu_rt = [];
-x="";
-y="";
-window_2= msgbox(sprintf('%5.1f = %5.3f\n',[x;total_pHat]),'ProbabilityCorrect task 2','help');
-window_3= msgbox(sprintf('%5.1f = %5.3f\n',[y;total_mu_rt]),'Mean RT task 2','help');
+% label_pHat = [];
+% label_mu_rt = [];
+% x="";
+% y="";
+% window_2= msgbox(sprintf('%5.1f = %5.3f\n',[x;total_pHat]),'ProbabilityCorrect task 2','help');
+% window_3= msgbox(sprintf('%5.1f = %5.3f\n',[y;total_mu_rt]),'Mean RT task 2','help');
 % window_4= msgbox(sprintf(' %f \n',mu_rt),'Mean RT','help');
 
 % Second Task
@@ -259,8 +259,8 @@ rt_mat2 = [sum_rt2(1,:);n_correct2(1,:);n_trials2(1,:)];
 % label_mu_rt = [];
 total_pHat2 = mean(mean(pHat2));
 total_mu_rt2 = mean(mean(mu_rt2));
-x="";
-y="";
-window_2= msgbox(sprintf('%5.1f = %5.3f\n',[x;total_pHat2]),'ProbabilityCorrect task 2','help');
-window_3= msgbox(sprintf('%5.1f = %5.3f\n',[y;total_mu_rt2]),'Mean RT task 2','help');
+% x="";
+% y="";
+% window_2= msgbox(sprintf('%5.1f = %5.3f\n',[x;total_pHat2]),'ProbabilityCorrect task 2','help');
+% window_3= msgbox(sprintf('%5.1f = %5.3f\n',[y;total_mu_rt2]),'Mean RT task 2','help');
 % window_4= msgbox(sprintf(' %f \n',mu_rt),'Mean RT','help');

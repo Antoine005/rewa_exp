@@ -47,7 +47,7 @@ color1  = [];
 curWindow = screenInfo.curWindow;
 rseed     = screenInfo.rseed;
 dontclear = screenInfo.dontclear; % dontclear = 0
-dotSize   = 4;
+dotSize   = 6;
 frames    = 0;
 
 % choice:

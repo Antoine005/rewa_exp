@@ -164,7 +164,7 @@ if chooseLeft==-1
         end
 
     elseif version == 3
-        Screen('DrawDots', curWindow, dot_show(:,1:x), 4, color(:,1:count), center(1,:));
+        Screen('DrawDots', curWindow, dot_show(:,1:x), 6, color(:,1:count), center(1,:));
         %Screen('DrawDots', curWindow, dot_show(:,1:y), 4, color1(:,1:count), center(1,:));
     end
 else

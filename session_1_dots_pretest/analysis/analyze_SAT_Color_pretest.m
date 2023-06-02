@@ -25,9 +25,9 @@ function [rt_mat] = analyze_SAT_Color_pretest(subID,startBlock)
 
 
 %% load input file
-inputfile = ['inputs/Pretest_' subID '_SAT_Color'];
+inputfile = ['../exp/inputs/Pretest_' subID '_SAT_Color'];
 load(inputfile);
-datafile  = ['data/Pretest_' subID '_SAT_Color.txt'];
+datafile  = ['../exp/data/Pretest_' subID '_SAT_Color.txt'];
 data      = load(datafile); % load text file into workspace and named data
 
 %% setting to analysis

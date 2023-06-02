@@ -19,6 +19,7 @@ global red yellow gap white inputs screenInfo rightKey leftKey skipKey xCtr yCtr
 %     v=mat2str(version);
 % use version 4 : show sampling result for 1 second and then disappear
 version=3;
+result = 0;
 
 % HideCursor
 % Removes the blue screen flash and minimize extraneous warnings.
@@ -42,7 +43,7 @@ lineHeight=1.5*textSize;
 textFont='Arial';Screen(screenInfo.curWindow,'TextFont',textFont);
 xCtr=screenInfo.screenRect(3)/2;
 yCtr=screenInfo.screenRect(4)/2;
-width_fix=16;
+width_fix=16;   
 
 % Time setting
 t_feedback=1.5;
@@ -64,7 +65,7 @@ barSize=800;
 xLeft = xCtr-barSize/2;
 yBar = yCtr+50;
 barHeight=20;
-maxSum=-10; % Set maximum sum (greater than this sum, the reward line gets reset)
+maxSum=100; % Set maximum sum (greater than this sum, the reward line gets reset)
 pixPerDollar=barSize/maxSum;
 grid_int=5;
 dollarGrid=0:grid_int:maxSum;

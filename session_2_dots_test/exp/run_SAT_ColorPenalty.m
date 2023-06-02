@@ -19,7 +19,7 @@ global red yellow gap white inputs screenInfo rightKey leftKey skipKey xCtr yCtr
 %     v=mat2str(version);
 % use version 4 : show sampling result for 1 second and then disappear
 version=3;
-
+result = 0;
 % HideCursor
 % Removes the blue screen flash and minimize extraneous warnings.
 Screen('Preference', 'SkipSyncTests', 1);
