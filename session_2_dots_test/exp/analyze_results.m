@@ -33,7 +33,8 @@ elseif ispc
 end
 load(inputfile);
 
-[total_mu_rt,total_pHat,total_mu_rt2,total_pHat2] =analyze_sat_coherence(subID);
+[total_pHat,total_mu_rt,total_pHat2,total_mu_rt2] =analyze_sat_coherence(subID);
+M = [total_pHat,total_mu_rt,total_pHat2,total_mu_rt2];
 % disp(rt_mat_SAT)
 
 %% save to file.
@@ -41,5 +42,6 @@ load(inputfile);
 filename=['data/results/results_' subID ];
 
 ID=subID;
-save(filename,'ID','total_mu_rt','total_pHat','total_mu_rt2','total_pHat2');
-
+save(filename,'ID','total_pHat','total_mu_rt','total_pHat2','total_mu_rt2');
+FileData = load(['data/results/results_' subID '.mat']);
+csvwrite(['data/results/results_' subID '.csv'], M)

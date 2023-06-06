@@ -44,6 +44,7 @@ n_trials2=sum_rt2;
 n_correct2=sum_rt2;
 
 max_time=max(inputs(1).trial_timeLimit);
+% total_score = inputs(240).accumulated_points;
 min_RT=max_time;
 count_valid=0;
 
@@ -249,6 +250,7 @@ rt_mat = [sum_rt(1,:);n_correct(1,:);n_trials(1,:)];
 
 mu_rt2 = sum_rt./n_trials;   % mean RT
 pHat2 = n_correct./n_trials;    % probability of correct
+% score_dvd_total = 
 
 rt_mat2 = [sum_rt2(1,:);n_correct2(1,:);n_trials2(1,:)];
 
@@ -261,6 +263,6 @@ total_pHat2 = mean(mean(pHat2));
 total_mu_rt2 = mean(mean(mu_rt2));
 % x="";
 % y="";
-% window_2= msgbox(sprintf('%5.1f = %5.3f\n',[x;total_pHat2]),'ProbabilityCorrect task 2','help');
+% window_2= msgbox(sprintf('%5.1f = %5.3f\n',[x;total_score]),'ProbabilityCorrect task 2','help');
 % window_3= msgbox(sprintf('%5.1f = %5.3f\n',[y;total_mu_rt2]),'Mean RT task 2','help');
 % window_4= msgbox(sprintf(' %f \n',mu_rt),'Mean RT','help');

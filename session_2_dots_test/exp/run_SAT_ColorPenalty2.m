@@ -74,8 +74,8 @@ dollarGridInPix=dollarGrid.*barSizePerDollarInPix;
 
 % reward
 rew_correct=1;
-rew_wrong=3;
-rew_tooSlow=3;
+rew_wrong=2;
+rew_tooSlow=2;
 % RT_bonus=10;
 
 %%%%--------------------------------------------------------------------
@@ -255,15 +255,13 @@ for trialNo=1:nTrialsPB
         rewLineTotalInPix=round(rewLineTotal*pixPerDollar);
     end
     %Screen('FillRect',screenInfo.curWindow,yellow,[xLeft yBar xLeft+rewLineTotalInPix yBar+barHeight]);
-    if trialNo == nTrialsPB
-         centerText(screenInfo.curWindow, ['Your total score is ' num2str(total_sum) ' points'], xCtr, yCtr-150, white)
-
+    if trialNo == nTrialsPB && blockNo ~= 30
+        centerText(screenInfo.curWindow, ['Your total score is ' num2str(total_sum) ' points'], xCtr, yCtr-150, white)
         centerText(screenInfo.curWindow, 'Press spacebar to continue', xCtr, yCtr, white)
         Screen('Flip', screenInfo.curWindow);
-        KbName()
         while 1
             [tik, secs, keyCode] = KbCheck;
-            if tik && (strcmp(KbName(keyCode), 'space(') || strcmp(KbName(keyCode), 'space'))
+            if (strcmp(KbName(keyCode), 'space(') || strcmp(KbName(keyCode), 'space'))
                 break
             end
         end

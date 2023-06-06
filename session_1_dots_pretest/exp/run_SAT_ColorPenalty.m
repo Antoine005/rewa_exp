@@ -67,8 +67,8 @@ dollarGridInPix = dollarGrid.*barSizePerDollarInPix;
 
 % reward
 rew_correct= 1;
-rew_wrong  = 3;
-rew_tooSlow= 3;
+rew_wrong  = 2;
+rew_tooSlow= 2;
 
 %% setting input and output direction
 % This would load dotInfo and inputs, 1 structural arrays from inputfile.
