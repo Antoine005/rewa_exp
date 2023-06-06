@@ -47,11 +47,9 @@ save(filename,'ID','total_pHat','total_mu_rt','total_pHat2','total_mu_rt2');
 mkdir(['C:\Users\AOE\Desktop\time_is_money\session_2_dots_test\exp\data\results\' subID])
 csvwrite(['data/results/' subID '/results_' subID '.csv'], M)
 % M2 = readtable(input_data);
-M2 = input_data.inputs(1).trial_timeLimit;
-M3 = input_data.inputs(1).trial_redRatio;
-for i = 2:30
-    M2 = [M2;input_data.inputs(i).trial_timeLimit];
-    M3 = [M3;input_data.inputs(i).trial_redRatio];
+for i = 1:30
+    M2 = [M2;input_data.inputs(i).timeLimit];
+    M3 = [M2;input_data.inputs(i).redRatio];
 end
 
 M4 = [M2,M3];
