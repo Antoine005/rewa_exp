@@ -7,7 +7,7 @@ function result = run_SAT_ColorPenalty(subID,blockNo,pretest)
 % SWW.2013.
 % CCT.2014.02.10.remained time was added with end fixation
 % CCT.2014.03.18 Decide to use version 4 as our experiment design
-% CCT.2014.03.19 
+% CCT.2014.03.19    
 % - shrinp the size of ring and choice
 % - do not use "Get -30" as loss but use Loss 30 as penalty
 % - the color of reward bar changes to yellow
@@ -73,8 +73,8 @@ dollarGridInPix=dollarGrid.*barSizePerDollarInPix;
 
 % reward
 rew_correct=1;
-rew_wrong=2;
-rew_tooSlow=2;
+rew_wrong=3;
+rew_tooSlow=3;
 % RT_bonus=10;
 
 %%%%--------------------------------------------------------------------
