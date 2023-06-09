@@ -74,8 +74,8 @@ dollarGridInPix=dollarGrid.*barSizePerDollarInPix;
 
 % reward
 rew_correct=1;
-rew_wrong=3;
-rew_tooSlow=3;
+rew_wrong=2;
+rew_tooSlow=2;
 % RT_bonus=10;
 
 %%%%--------------------------------------------------------------------
