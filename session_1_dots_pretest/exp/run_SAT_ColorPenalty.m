@@ -218,8 +218,16 @@ for trialNo=1:nTrialsPB
         rewLineTotalInPix=round(rewLineTotal*pixPerDollar);
     end
     % Screen('FillRect',screenInfo.curWindow,yellow,[xLeft yBar xLeft+rewLineTotalInPix yBar+barHeight]);
-    if mod(trialNo,10)==0
-         centerText(screenInfo.curWindow,['Your total score is ' num2str(total_sum) ' points'],xCtr,yCtr-300,white)
+    if trialNo == nTrialsPB && blockNo ~= 9
+        centerText(screenInfo.curWindow, ['Your total score is ' num2str(total_sum) ' points'], xCtr, yCtr-150, white)
+        centerText(screenInfo.curWindow, 'Press spacebar to continue', xCtr, yCtr-250, white)
+        Screen('Flip', screenInfo.curWindow);
+        while 1
+            [tik, secs, keyCode] = KbCheck;
+            if (strcmp(KbName(keyCode), 'space(') || strcmp(KbName(keyCode), 'space'))
+                break
+            end
+        end
     end
     % Draw dollar grid line and mark dollar in number on screen
     %for grid=1:length(dollarGrid)
