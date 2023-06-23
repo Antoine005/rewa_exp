@@ -71,8 +71,8 @@ choice = [1 2];
     sizeAngle_total=(360*(currTime/max_time));
     arc_range=apD*2+10;
     Screen('FrameArc',curWindow, grey, [xCtr-arc_range yCtr-arc_range xCtr+arc_range yCtr+arc_range], 0,360,4);
-    Screen('FrameArc',curWindow, white, [xCtr-arc_range yCtr-arc_range xCtr+arc_range yCtr+arc_range], 0,-sizeAngle_total,4);
-
+    Screen('FrameArc',curWindow, white, [xCtr-arc_range yCtr-arc_range xCtr+arc_range yCtr+arc_range], 0,sizeAngle_total,4);
+    
     % draw the choice
     dirR=170;
     radius_choice=30;
@@ -195,10 +195,10 @@ end
     sizeAngle = sizeAngle + (360/time_total_1);
     sizeAngle_total=(360*(currTime/max_time));
    % startAngle = sizeAngle;
-    Screen('FrameArc',curWindow, grey, [xCtr-arc_range yCtr-arc_range xCtr+arc_range yCtr+arc_range], 0,360,4);
-    Screen('FrameArc', curWindow, white, [xCtr-arc_range, yCtr-arc_range, xCtr+arc_range, yCtr+arc_range], 0, -sizeAngle_total, 4);
+    Screen('FrameArc', curWindow, grey, [xCtr-arc_range, yCtr-arc_range, xCtr+arc_range, yCtr+arc_range], 0, 180-360, 4);
+    Screen('FrameArc', curWindow, white, [xCtr-arc_range, yCtr-arc_range, xCtr+arc_range, yCtr+arc_range], 0, 180-sizeAngle_total, 4);
     arc_range_K = arc_range + 2;
-    Screen('FrameArc', curWindow, black, [xCtr-arc_range_K, yCtr-arc_range_K, xCtr+arc_range_K, yCtr+arc_range_K], 360, -sizeAngle, 10);
+    Screen('FrameArc', curWindow, black, [xCtr-arc_range_K, yCtr-arc_range_K, xCtr+arc_range_K, yCtr+arc_range_K], 180, 180-sizeAngle, 10);
 
  
     % make sure 50ms show a dot (each second has 60 frame, each frame take 16.67ms)

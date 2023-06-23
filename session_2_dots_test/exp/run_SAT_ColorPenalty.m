@@ -285,7 +285,7 @@ for trialNo=1:nTrialsPB
         Screen('Flip', screenInfo.curWindow);
         while 1
             [tik, secs, keyCode] = KbCheck;
-            if tik && (strcmp(KbName(keyCode), 'space(') || strcmp(KbName(keyCode), 'space'))
+            if tik && (strcmp(KbName(keyCode), 'return(') || strcmp(KbName(keyCode), 'return'))
                 break
             end
         end
@@ -304,11 +304,11 @@ for trialNo=1:nTrialsPB
 
     if trialNo == nTrialsPB && blockNo ~= 30
         centerText(screenInfo.curWindow, ['Your total score is ' num2str(total_sum) ' points'], xCtr, yCtr-150, white)
-        centerText(screenInfo.curWindow, 'Press spacebar to continue', xCtr, yCtr, white)
+        centerText(screenInfo.curWindow, 'Press enter to continue', xCtr, yCtr, white)
         Screen('Flip', screenInfo.curWindow);
         while 1
             [tik, secs, keyCode] = KbCheck;
-            if (strcmp(KbName(keyCode), 'space(') || strcmp(KbName(keyCode), 'space'))
+            if (strcmp(KbName(keyCode), 'return(') || strcmp(KbName(keyCode), 'return'))
                 break
             end
         end
